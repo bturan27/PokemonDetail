@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {Switch, Route, Link} from "react-router-dom";
+import Bio from './views/Bio';
+import { useState } from 'react';
+import ColorContext from "./contexts/ColorContext";
+import NavBar from './components/NavBar';
+import Cards from './views/Cards';
+
 
 function App() {
+  const [themeColor,setThemeColor] = useState("palevioletred");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>color theme site </h1>
+      <ColorContext.Provider value={{themeColor,setThemeColor}}>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Bio />
+          </Route>
+
+          <Route exact path="/cards">
+            <Cards/>
+          </Route>
+
+        </Switch>
+      </ColorContext.Provider>
     </div>
   );
 }
